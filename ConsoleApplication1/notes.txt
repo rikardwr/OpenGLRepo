@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <stdlib.h> 
 #include <math.h>
 #include <random>
@@ -87,12 +87,12 @@ int prevIndex = balls_number;
 
 Box boxObject;
 std::vector<Box> BoxLines;
-pthread_mutex_t inizializerMutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t inizilazierConditions = PTHREAD_COND_INITIALIZER;
-std::vector<pthread_mutex_t> vecMutexThreads;
+pthread_mutex_t inizializerMutex  = PTHREAD_MUTEX_INITIALIZER; 
+pthread_cond_t inizilazierConditions = PTHREAD_COND_INITIALIZER; 
+std::vector<pthread_mutex_t> vecMutexThreads; 
 std::vector<pthread_cond_t> vecContidionThreads;
-std::vector<bool> vecStartCond;
-std::vector< Quebuffer<Ball> > vecBallQueue;
+std::vector<bool> vecStartCond; 
+std::vector< Quebuffer<Ball> > vecBallQueue;  
 std::vector<Vector2<float>> vecSpeed2d;
 
 std::vector<float> vecSize(balls_number);
@@ -102,10 +102,10 @@ std::vector<float> vecSize(balls_number);
 class objects
 {
 public:
-
-    //Draw circle points
-    float X[NUMBER_OF_SEGMENTS + 1][NUMBER_OF_SEGMENTS + 1];
-    float Y[NUMBER_OF_SEGMENTS + 1][NUMBER_OF_SEGMENTS + 1];
+    
+	//Draw circle points
+    float X[NUMBER_OF_SEGMENTS + 1][NUMBER_OF_SEGMENTS + 1]; 
+    float Y[NUMBER_OF_SEGMENTS + 1][NUMBER_OF_SEGMENTS + 1]; 
 
     void operator()()
     {
@@ -117,52 +117,52 @@ public:
         InizitalitionRandomBalls();
 
     }
-
+	
     void InizitalitionRandomBalls()
     {
-        //for (int i = 0; i < balls_number; i++)
-        //{
-        //	vecSize[i] = 0.3f;
-        //	vecSpeed[i] = Vector3d<float>(0.0f, 0.0f, 0.0f);
-        //	vecBallQueue[i].push(Balls[i]);
-        //}
-        //for (int i = 0; i < balls_number; i++)
-        //	{
-        //	vecBallQueue[i].push(Balls[i]);
-        //	}
-        //inizialise threads with balls numbers
+		//for (int i = 0; i < balls_number; i++)
+		//{
+		//	vecSize[i] = 0.3f;
+		//	vecSpeed[i] = Vector3d<float>(0.0f, 0.0f, 0.0f);
+		//	vecBallQueue[i].push(Balls[i]);
+		//}
+		//for (int i = 0; i < balls_number; i++)
+		//	{
+		//	vecBallQueue[i].push(Balls[i]);
+		//	}
+		//inizialise threads with balls numbers
 
         Balls.reserve(balls_number);
         std::mt19937 random_color_gen((std::random_device())());
-        // the middle between the box cordinate pos_x pos_y. ball 
+		// the middle between the box cordinate pos_x pos_y. ball 
         std::uniform_real_distribution<> pos_x(-0.5f + radius_ball, 1.5f - radius_ball);
         std::uniform_real_distribution<> pos_y(-0.5f + radius_ball, 1.5f - radius_ball);
         std::uniform_real_distribution<> pos_generator(-0.15f, 0.15f);
-        std::uniform_real_distribution<> speed_generator(-0.1f, 0.1f);
-        std::uniform_real_distribution<> size_generator(0.1f, 0.3f);
-        std::uniform_real_distribution<> angle_generator(0.0f, 360.0f);
-        std::uniform_real_distribution<> color_generator(0.0f, 1.0f);
-        std::uniform_real_distribution<> color_generator_2(0.0f, 1.0f);
-        std::uniform_real_distribution<> color_generator_3(0.0f, 1.0f);
-        std::uniform_real_distribution<> color_generator_4(0.0f, 1.0f);
+		std::uniform_real_distribution<> speed_generator(-0.1f, 0.1f);
+		std::uniform_real_distribution<> size_generator(0.1f, 0.3f);
+		std::uniform_real_distribution<> angle_generator(0.0f, 360.0f);
+		std::uniform_real_distribution<> color_generator(0.0f, 1.0f);
+		std::uniform_real_distribution<> color_generator_2(0.0f, 1.0f);
+		std::uniform_real_distribution<> color_generator_3(0.0f, 1.0f);
+		std::uniform_real_distribution<> color_generator_4(0.0f, 1.0f);
 
         std::uniform_real_distribution<> color_gen(0.2, 1.0);
 
-        /*for (int i = 0; i < balls_number; i++)
-        {
-            Balls.push_back(Ball(pos_x(random_color_gen), pos_y(random_color_gen), pos_generator(random_color_gen), color_gen(random_color_gen), color_gen(random_color_gen), color_gen(random_color_gen), radius_ball));
-            vecSize[i] = radius_ball;
-            vecSpeed[i] = Vector3d<float>(0.0f, 0.0f, 0.0f);
-            vecBallQueue[i].push(Balls[i]);
-        }*/
+		/*for (int i = 0; i < balls_number; i++)
+		{
+			Balls.push_back(Ball(pos_x(random_color_gen), pos_y(random_color_gen), pos_generator(random_color_gen), color_gen(random_color_gen), color_gen(random_color_gen), color_gen(random_color_gen), radius_ball));
+			vecSize[i] = radius_ball;
+			vecSpeed[i] = Vector3d<float>(0.0f, 0.0f, 0.0f);
+			vecBallQueue[i].push(Balls[i]);
+		}*/
 
         for (int i = 0; i < balls_number; i++)
         {
 
-            Ball newBall;
-            newBall.initBall(pos_x, pos_y, pos_generator, color_gen, random_color_gen);
-            Balls.push_back(newBall);
-
+                Ball newBall;
+                newBall.initBall(pos_x, pos_y, pos_generator, color_gen, random_color_gen);
+                Balls.push_back(newBall);
+            
         }
         BoxLines.push_back({ 0.5f,0.5f });
         BoxLines.push_back({ 0.5f,-0.5f });
@@ -172,21 +172,21 @@ public:
         for (int i = 0; i <= NUMBER_OF_SEGMENTS; i++)
         {
             // DrawsCircle
-            float first_angle = i * 2 * M_PI / NUMBER_OF_SEGMENTS;
+            float first_angle = i * 2 * M_PI / NUMBER_OF_SEGMENTS; 
             for (int j = 0; j <= NUMBER_OF_SEGMENTS; j++)
             {
                 float reverse_angle = j * 2 * M_PI / NUMBER_OF_SEGMENTS;
                 X[i][j] = cos(first_angle) * sin(reverse_angle);
                 Y[i][j] = sin(first_angle) * sin(reverse_angle);
-                //std::cout << X[i][j] << " " << Y[i][j] << std::endl;
-
+				//std::cout << X[i][j] << " " << Y[i][j] << std::endl;
+				
                //std::cout << first_angle << "\n" << reverse_angle << std::endl;
-
+				
             }
         }
 
     }
-
+    
     void operator()(Ball& ball)
     {
         //cout<<Z[0][0]<<endl;
@@ -221,8 +221,8 @@ public:
             }
         }
 
-
-
+		
+        
 
         float boxWidth = 2.0f;
         float boxHeight = 2.0f;
@@ -233,16 +233,16 @@ public:
         glVertex2f(-boxHeight, -boxWidth);
         glVertex2f(-boxHeight, boxWidth);
         glEnd();
-        /*float InnerBoxWidth = 0.1f;
+		/*float InnerBoxWidth = 0.1f;
         float InnerBoxHeight = 0.1;
-        glBegin(GL_LINE_LOOP);
+		glBegin(GL_LINE_LOOP);
         glColor3f(0.0f, 0.0f, 0.1);
-        glVertex2f(InnerBoxHeight, InnerBoxWidth);
+		glVertex2f(InnerBoxHeight, InnerBoxWidth);
         glVertex2f(InnerBoxHeight, -InnerBoxWidth);
-        glVertex2f(-InnerBoxHeight, -InnerBoxWidth);
+		glVertex2f(-InnerBoxHeight, -InnerBoxWidth);
         glVertex2f(-InnerBoxHeight, InnerBoxWidth);
         glEnd();*/
-
+		
     }
 };
 
@@ -282,9 +282,9 @@ objects object;
 
 void boxCollsion(Ball& ball)
 {
-    /*ball.p0.x = ball.p0.x + ball.velocity.y;
-    ball.p0.y = ball.p0.y + ball.velocity.y;*/
-
+	/*ball.p0.x = ball.p0.x + ball.velocity.y;
+	ball.p0.y = ball.p0.y + ball.velocity.y;*/
+    
     if (ball.p01.x + ball.radius_ball > box.boxWidth)
     {
         ball.p01.x = box.boxWidth - ball.radius_ball;
@@ -311,9 +311,9 @@ void boxCollsion(Ball& ball)
 
 }
 
-void InnerBoxCollider()
+void InnerBoxCollider() 
 {
-
+	
 }
 
 #pragma endregion
@@ -331,21 +331,21 @@ void updateBalls(Ball& a, Ball& b, float Cr)
     Vector2<float> temp1(temp), temp2(temp), temp3(temp), temp4(temp);
     float A_ball = temp.dot_product(velcoityA);
     float B_ball = temp.dot_product(VelocityB);
-    float mass1 = a.mass;
+    float mass1 = a.mass; 
     float mass2 = mass1;
     float v1 = (mass2 * (B_ball - A_ball) + mass1 * A_ball + mass2 * B_ball) / (mass1 + mass2);
     float v2 = (mass1 * (A_ball - B_ball) + mass2 * B_ball + mass1 * A_ball) / (mass1 + mass2);
     std::cout << "******* BALL COLLSION DETECTION BALLS" << "\n";
     std::cout << "************* Ball Velocity dot A and B************************" << std::endl;
     std::cout << "Ball A: " << v1 << std::endl; std::cout << " Ball B: " << v2 << std::endl;
-    std::cout << "Velocity A(dot product) :" << A_ball << std::endl;
-    std::cout << "Velocity B(dot product) :" << A_ball << " " << B_ball << std::endl;
-    std::cout << "A_ball: " << A_ball << " B_ball: " << B_ball << std::endl;
-    std::cout << "************* mass Ball A & B************************" << std::endl;
-    std::cout << "mass A: " << mass1 << std::endl << "mass : " << mass2 << std::endl;
+    std::cout << "Velocity A(dot product) :" << A_ball << std::endl; 
+    std::cout << "Velocity B(dot product) :"<< A_ball << " " << B_ball << std::endl;
+	std::cout << "A_ball: " << A_ball << " B_ball: " << B_ball << std::endl;
+	std::cout <<  "************* mass Ball A & B************************" << std::endl;
+	std::cout << "mass A: " << mass1 << std::endl << "mass : " << mass2 << std::endl;
     counting++;
     std::cout << "************* counting ************************" << std::endl;
-    std::cout << "counting " << counting << std::endl;
+	std::cout << "counting " << counting << std::endl;
 
     temp.scaling(A_ball);
     velcoityA.substraction(temp);
@@ -366,11 +366,6 @@ void updateBalls(Ball& a, Ball& b, float Cr)
 #pragma endregion
 
 #pragma region UpdateBallPosistion
-
-void* balldrop(void* args) 
-{
-    return args;
-}
 
 void* ballControl(void* args)
 {
@@ -400,38 +395,38 @@ void* ballControl(void* args)
         {
             Balls[j].p01.add(Balls[j].velocity);
             boxCollsion(Balls[j]);
-
+			
             //std::cout << "Ball [" << j << "] : " << " Velocity in y ["  << Balls[j].p0.y <<"]" << std::endl;
             //std::cout << "Ball " << j << "] : " << " Velocity in x [" << Balls[j].p0.x << "]" << std::endl;
-
+			
         }
         //ball collision
-        //for (int j = startIndex; j < endIndex; j++)
-        //{
-        //	for (int k = j + 1; k < endIndex; k++)
-        //	{
-        //		updateBalls(Balls[j], Balls[k], 0.5);
-        //	}
-        //}
-        ////signal to timer
-        //
+		//for (int j = startIndex; j < endIndex; j++)
+		//{
+		//	for (int k = j + 1; k < endIndex; k++)
+		//	{
+		//		updateBalls(Balls[j], Balls[k], 0.5);
+		//	}
+		//}
+		////signal to timer
+		//
         for (int j = startIndex; j < endIndex; j++)
         {
             for (int k = j + 1; k < endIndex; k++)
             {
                 updateBalls(Balls[j], Balls[k], Speed);
 
-                /*  myfile.open("example.csv");
-                  myfile << Balls[j].p0.x;
-                  myfile << ",";*/
-                  // myfile << Balls[j].p0.x;
-                  ////" Ball Position in y: " << Balls[j].p0.y << std::endl;
-                  // myfile << "a,b,c,\n";
-                  // myfile << "c,s,v,\n";
-                  // myfile << "1,2,3.456\n";
-                  //// myfile << "semi;colon";
-                  // myfile.close();
-                  // return 0;
+                  /*  myfile.open("example.csv");
+                    myfile << Balls[j].p0.x;
+					myfile << ",";*/
+                   // myfile << Balls[j].p0.x;
+                   ////" Ball Position in y: " << Balls[j].p0.y << std::endl;
+                   // myfile << "a,b,c,\n";
+                   // myfile << "c,s,v,\n";
+                   // myfile << "1,2,3.456\n";
+                   //// myfile << "semi;colon";
+                   // myfile.close();
+                   // return 0;
             }
         }
         for (int j = 0; j < threads_number; j++)
@@ -449,7 +444,7 @@ void* ballControl(void* args)
             for (int j = startIndex; j < endIndex; j++)
                 updateBalls(m, Balls[j], Speed);
             doneSofar++;
-
+			
         }
 #pragma region Threads
         pthread_mutex_lock(&inizializerMutex);
@@ -468,10 +463,10 @@ void* ballControl(void* args)
 void handleKeypress(unsigned char key,
     int x, int y)
 {
-    switch (key) {
-    case 27:
-        exit(0);
-        break;
+    switch (key){
+        case 27:
+            exit(0);
+         break;
     }
 }
 
@@ -483,7 +478,7 @@ void drawScene() {
     glTranslatef(0.0f, 0.0f, -6.4f);
     for (int i = 0; i < balls_number; i++)
         object(Balls[i]);
-    //for(int i = 0; i < )
+	//for(int i = 0; i < )
     glutSwapBuffers(); //swap the buffer to display the scene
 }
 
@@ -492,19 +487,23 @@ void idle()
     drawScene();
 }
 
-
+void timerDis(int value)
+{
+    glutPostRedisplay();
+    glutTimerFunc(1000 / FRAME_RATE, timerDis, value);
+}
 void timer(int timerParam)
 {
     //std::cout << timerParam << std::endl;
-    for (int i = 0; i < threads_number; i++)
-    {
-        pthread_mutex_lock(&vecMutexThreads[i]);
-        vecStartCond[i] = true;
-        pthread_cond_signal(&vecContidionThreads[i]);
-        pthread_mutex_unlock(&vecMutexThreads[i]);
-    }
-
-    //threat wait for signal from inizilazier
+	for (int i = 0; i < threads_number; i++)
+	{
+		pthread_mutex_lock(&vecMutexThreads[i]);
+		vecStartCond[i] = true;
+		pthread_cond_signal(&vecContidionThreads[i]);
+		pthread_mutex_unlock(&vecMutexThreads[i]);
+	}
+	
+	//threat wait for signal from inizilazier
     for (int i = 0; i < threads_number; i++)
     {
         pthread_mutex_lock(&vecMutexThreads[i]);
@@ -519,10 +518,10 @@ void timer(int timerParam)
         pthread_cond_wait(&inizilazierConditions, &inizializerMutex);
     }
     pthread_mutex_unlock(&inizializerMutex);
-
-    //set counter to 0 for the next cycle
+	
+	//set counter to 0 for the next cycle
     threads_counter = 0;
-
+   
     glutPostRedisplay();
     glutTimerFunc(intervall_timer, timer, 0);
 }
@@ -556,10 +555,9 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(1000, 1000); // Width and height of the window
-    //inziliase condtionand and mutex
+	//inziliase condtionand and mutex
     //initialisations to barrier, conditionals and mutexes
     std::vector<pthread_t> ballControlThreads(threads_number);
-    std::vector<pthread_t> ballDropThreads(threads_number);
     vecContidionThreads.resize(threads_number);
     vecMutexThreads.resize(threads_number);
     vecBallQueue.resize(threads_number);
@@ -572,13 +570,6 @@ int main(int argc, char** argv)
     {
         int m = i;
         pthread_create(&ballControlThreads[i], NULL, ballControl, (void*)m);
-     
-    }
-
-    for (int i = 0; i < threads_number; i++) 
-    {
-        int m = i; 
-        pthread_create(&ballDropThreads[i], NULL, balldrop, (void*)m);
     }
 
     //Create the window
