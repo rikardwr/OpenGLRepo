@@ -33,6 +33,7 @@ Ball& Ball::operator=(const Ball& a)
 }
 
 Ball& Ball::operator<<(const Ball& a) {
+	
 	p01 = a.p01;
 	velocity = a.velocity;
 	r = a.r;

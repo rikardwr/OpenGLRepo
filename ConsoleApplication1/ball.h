@@ -24,15 +24,5 @@ public:
 
     int timer;
 
-    //void RandColor();
 };
-/**
-void ball1::RandColor() {
-    float color[3];
-    srand(static_cast <unsigned> (time(0)));
-    for (int i = 0; i < 3; i++) {
-        color[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-    }
-    r = color[0], g = color[1], b = color[2];
-}
-*/
+
