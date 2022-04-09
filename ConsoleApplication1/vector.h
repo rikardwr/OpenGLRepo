@@ -1,11 +1,6 @@
-﻿
-#ifndef vector_h
+﻿#ifndef vector_h
 #define vector_h
-
 #include <cmath>
-
-
-
 
 template <typename Z>
 class Vector2 {
@@ -95,14 +90,12 @@ template<typename Z>
 {
 	x -= a.x;
 	y -= a.y;
-	
 }
 
 template<typename T>
  T Vector2<T>::dot_product(const Vector2& a)
 {
 	return (x * a.x + y * a.y);
-	
 }
 
 template<typename Z>

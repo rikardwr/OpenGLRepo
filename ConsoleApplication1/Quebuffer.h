@@ -1,10 +1,8 @@
 
 #ifndef Quebuffer_H
 #define Quebuffer_H
-
 #include <pthread.h>
 #include <queue>
-
 template <typename T>
 class Quebuffer {
 private:
@@ -33,7 +31,6 @@ void Quebuffer<T>::addbuffer_item(T b_item)
     pthread_cond_signal(&CondtitionalMX);
     pthread_mutex_unlock(&QueryMX);
 }
-
 template <typename T>
 T Quebuffer<T>::remove()
 {
@@ -44,5 +41,4 @@ T Quebuffer<T>::remove()
     pthread_mutex_unlock(&QueryMX);
     return b_item;
 }
-
 #endif
